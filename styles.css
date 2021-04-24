@@ -1,41 +1,64 @@
-html,body,h1,p{
+*{
 	margin: 0;
+	padding: 0;
 	box-sizing: border-box;
 }
 
 body{
-	background-image: url(background.jpg);
+	background: lightblue;
 }
 
 .container{
-	width: 90%;
-	max-width: 500px;
-	margin: 0 auto;
-	display: grid;
-	grid-gap: 15px;
-	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.container h1{
+	font-family: 'Dosis', sans-serif;
+	margin: 2rem;
+	letter-spacing: 2px;
 }
 
 input[type=text]{
 	width: 200px;
 	height: 1.6rem;
 	border: 1px solid black;
+	padding: 1rem;
 	outline: none;
 	border-radius: 10px;
 }
 
-.weather p{
-	font-size: 1.2rem;
-	padding-top: 10px 0;
-}
-
 .weather{
 	color: black;
+	border: 1px solid #47cdf5;
+	border-radius: 10px;
+	background: #47cdf5;
+	margin-top: 1.5rem;
+	padding: 15px;
+	font-family: 'Arima Madurai', cursive;
+}
+
+.weather p{
+	font-size: 1.2rem;
+	letter-spacing: 1px;
+	font-weight: bold;
+	padding: 5px;
+}
+
+.error-info{
+	color: #f72424;
+	font-family: 'Roboto', sans-serif;
+	letter-spacing: 1px;
 }
 
 .degrees{
 	background: #c3f5f0;
-	padding: 5px;
+	margin: 1.5rem 0;
+	font-family: 'Dosis', sans-serif;
+	font-weight: bold;
+	padding: 10px;
 	width: 200px;
 	border-radius: 10px;
 }
@@ -43,13 +66,14 @@ input[type=text]{
 button{
 	width: 40px;
 	height: 1.2rem;
-	border: 1px solid black;
-	border-radius: 5px;
+	border: 1px solid #b6b6ec;
+	background: #b6b6ec;
 	cursor: pointer;
 }
 
 .active{
-	background: #626bce;
+	border: 1px solid #f55120;
+	background:#f55120;
 }
 
 @keyframes fadeIn {

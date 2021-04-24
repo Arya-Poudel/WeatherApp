@@ -3,7 +3,7 @@ const weatherDiv = document.querySelector('.weather');
 
 function getInputValues(){
 	const searchBox = document.getElementById('search-term');
-	let searchTerm = searchBox.value;
+	let searchTerm = searchBox.value || 'Kathmandu';
 	getWeatherData(searchTerm);
 	return false;
 }
@@ -37,7 +37,10 @@ async function getWeatherData(searchTerm){
 	    	mode: 'cors'
 	    });
 		const data = await response.json();
-
+		console.log(data);
+		let sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString(navigator.language, {hour: "2-digit",minute: "2-digit"});
+		let sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString(navigator.language, {hour: "2-digit",minute: "2-digit"});
+		
 		let weatherData = {
 			temp : data.main.temp,
 			feelTemp : data.main.feels_like,
@@ -45,6 +48,8 @@ async function getWeatherData(searchTerm){
 			description : data.weather[0].description,
 			location : data.name,
 			country : data.sys.country,
+			sunrise, 
+			sunset,
 			degree,
 		}
 		displayWeatherData(weatherData);
@@ -59,24 +64,31 @@ function displayWeatherData(weatherData){
 	const tempDiv = document.createElement('p');
 	tempDiv.textContent = 'Temperature: ' + weatherData.temp + weatherData.degree;
 	const feelTempDiv = document.createElement('p');
-	feelTempDiv.textContent = 'Feelss like: ' + weatherData.feelTemp + weatherData.degree;
+	feelTempDiv.textContent = 'Feels like: ' + weatherData.feelTemp + weatherData.degree;
 	const humidityDiv = document.createElement('p');
 	humidityDiv.textContent = 'Humidity: ' + weatherData.humidity + '%';
 	const descriptionDiv = document.createElement('p');
 	descriptionDiv.textContent = 'Weather: ' + weatherData.description;
 	const locationDiv = document.createElement('p');
 	locationDiv.textContent = weatherData.location + ', ' + weatherData.country;
+	const sunriseDiv = document.createElement('p');
+	sunriseDiv.textContent = 'Sunrise: ' + weatherData.sunrise;
+	const sunsetDiv = document.createElement('p');
+	sunsetDiv.textContent = 'Sunset: ' + weatherData.sunset;
 	animateDisplayData();
 	weatherDiv.appendChild(locationDiv);
 	weatherDiv.appendChild(tempDiv);
 	weatherDiv.appendChild(feelTempDiv);
 	weatherDiv.appendChild(humidityDiv);
 	weatherDiv.appendChild(descriptionDiv);	
+	weatherDiv.appendChild(sunriseDiv);
+	weatherDiv.appendChild(sunsetDiv);
 }
 
 function displayError(){
 	const errorDiv = document.createElement('p');
 	errorDiv.textContent = "Couldn't find the city.";
+	errorDiv.classList.add('error-info');
 	animateDisplayData();
 	weatherDiv.appendChild(errorDiv);
 }
@@ -87,3 +99,5 @@ function animateDisplayData(){
  	weatherDiv.offsetWidth;
  	weatherDiv.classList.add('fadeIn');
 }
+
+getWeatherData('Kathmandu');
